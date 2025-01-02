@@ -125,8 +125,3 @@ Feel free to reach out to discuss collaboration opportunities or any of the proj
 - **Google Scholar**: [scholar.google.com/citations?user=EDfhb1gAAAAJ&hl=en](https://scholar.google.com/citations?user=EDfhb1gAAAAJ&hl=en)
 
 ---
-
-### How to use this file:
-1. Create a new file named **`README.md`** in the root directory of your GitHub repository.
-2. Copy the content above and paste it into the `README.md` file.
-3. Commit and push the file to GitHub.
