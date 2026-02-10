@@ -122,5 +122,10 @@ I welcome collaborations in research, consulting, or AI-driven exploration:
 📍 Available for remote and international opportunities
 
 ---
+<footer>
+  <p>© AIMEX Lab — Dr. Muhammad Amar Gul</p>
+  <p>AI for Mineral Exploration | Interpretable & Reproducible Workflows</p>
+</footer>
+
 
 > *“Transforming geology with intelligent data.”* 🌍🔬🧠
