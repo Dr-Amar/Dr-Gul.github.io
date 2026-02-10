@@ -1,7 +1,11 @@
-# 👨‍🔬 Dr. Muhammad Amar Gul  
-*Geoscientist | Data Scientist | AI for Mineral Exploration*
+# 🧠 AIMEX Lab  
+**Artificial Intelligence for Mineral Exploration Laboratory**
 
-📍 Based in Saudi Arabia | 🌍 Open to global research & consulting opportunities  
+Founded by Dr. Muhammad Amar Gul, AIMEX Lab applies advanced  
+AI + ML to geochemistry, ore system science, and mineral exploration.  
+
+
+📍 Based in Saudi Arabia/Hybrid | 🌍 Open to global research & consulting opportunities  
 📫 Email: amar_geologist@yahoo.com | 📞 +966-530293372|+92-3326057978
 🔗 [LinkedIn](https://www.linkedin.com/in/muhammad-amar-gul-phd-65397151) | [Google Scholar](https://scholar.google.com/citations?user=EDfhb1gAAAAJ&hl=en) | [ResearchGate](https://www.researchgate.net/profile/Muhammad-Amar-Gul)  
 
