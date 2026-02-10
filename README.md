@@ -63,7 +63,7 @@ Deep learning model trained on sphalerite geochemistry and isotopes
 - 🗺️ **Interactive Web App for Deposit Type Prediction**  
   Developed with Python + Gradio for real-time classification of deposit types using pyrite/geochemical inputs.
   
-  - 🌍 **Remote Sensing–Based Alteration Mapping (Arabian Shield)**  
+- 🌍 **Remote Sensing–Based Alteration Mapping (Arabian Shield)**  
   Mapped alteration zones across 600,000 km² using Landsat-8/9 and supervised classification. Built a predictive model for mineral prospectivity.
 
 
