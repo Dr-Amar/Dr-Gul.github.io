@@ -1,1 +1,18 @@
 
+:root{
+  --aimex-primary:#0B3C5D;
+  --aimex-accent:#2C7DA0;
+  --text:#111;
+  --muted:#666;
+  --bg:#fff;
+  --border:#e6e6e6;
+}
+
+body{ margin:0; font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg); line-height:1.55;}
+.wrap{ max-width:980px; margin:0 auto; padding:22px;}
+.site-header{ border-bottom:1px solid var(--border); position:sticky; top:0; background:#fff;}
+.brand{ font-weight:800; text-decoration:none; color:var(--aimex-primary); font-size:18px;}
+.nav a{ margin-left:14px; text-decoration:none; color:var(--muted);}
+.nav a:hover{ color:var(--aimex-accent); }
+.page h1{ color:var(--aimex-primary); margin-top:10px; }
+.site-footer{ border-top:1px solid var(--border); color:var(--muted); }
