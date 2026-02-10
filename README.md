@@ -10,8 +10,19 @@ AI + ML to geochemistry, ore system science, and mineral exploration.
 🔗 [LinkedIn](https://www.linkedin.com/in/muhammad-amar-gul-phd-65397151) | [Google Scholar](https://scholar.google.com/citations?user=EDfhb1gAAAAJ&hl=en) | [ResearchGate](https://www.researchgate.net/profile/Muhammad-Amar-Gul)  
 
 ---
+## About AIMEX Lab
 
-## 🧠 About Me
+**AIMEX Lab (Artificial Intelligence for Mineral Exploration)**  
+is a research initiative dedicated to:
+
+- Interpretable AI/ML applied to Earth-science data
+- Predictive models for mineral systems & tectonic environments
+- Reproducible workflows supporting exploration decisions
+
+Based in Saudi Arabia, AIMEX Lab collaborates with academia  
+and industry to solve complex resource exploration challenges.
+---
+## 🧠 About Dr. Amar
 
 I am a multidisciplinary researcher and practitioner with a PhD in **Geology and AI/Machine Learning**, specializing in:
 
