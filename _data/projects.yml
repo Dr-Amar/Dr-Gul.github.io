@@ -1,1 +1,16 @@
+projects:
+  - name: "Pyrite-Gunga-Pb-Zn-Deposit--Machine-Learning"
+    url: "https://github.com/Dr-Amar/Pyrite-Gunga-Pb-Zn-Deposit--Machine-Learning"
+    summary: "ML-driven classification of Pb–Zn deposits using pyrite trace elements + isotopes."
+    highlights:
+      - "RF/GB/SVM/MLP; LOGO validation; >94% accuracy"
+      - "Explainability with SHAP; t-SNE for structure"
+    tags: ["Geochemistry", "ML", "Pb-Zn", "Pyrite"]
+
+  - name: "Sphalerite-Gunga-Pb-Zn-DeepLearning"
+    url: "https://github.com/Dr-Amar/Sphalerite-Gunga-Pb-Zn-DeepLearning"
+    summary: "Deep learning on sphalerite geochemistry + isotopes for mineralization classification."
+    highlights:
+      - "Critical metal enrichment signals (Ge, Cd, Ag, Sb)"
+    tags: ["Deep Learning", "Sphalerite", "Critical Metals"]
 
