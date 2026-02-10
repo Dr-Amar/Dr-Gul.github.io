@@ -22,6 +22,16 @@ is a research initiative dedicated to:
 Based in Saudi Arabia, AIMEX Lab collaborates with academia  
 and industry to solve complex resource exploration challenges.
 ---
+
+## Mission & Vision
+
+**Mission:** Apply transparent ML techniques to deep Earth data  
+to improve the understanding and prediction of mineral deposits.
+
+**Vision:** Establish reproducible AI systems to accelerate  
+global mineral exploration with open science and community tools.
+---
+
 ## 🧠 About Dr. Amar
 
 I am a multidisciplinary researcher and practitioner with a PhD in **Geology and AI/Machine Learning**, specializing in:
@@ -35,7 +45,9 @@ Currently working as **Project Geologist (AI & Big Data)** at China National Geo
 
 ---
 
-## 🚀 Featured Projects
+## 🚀 ## AIMEX Lab Projects
+
+## 🛠 Featured Projects
 
 ### 🔹 [Pyrite-Gunga-Pb-Zn-Deposit--Machine-Learning](https://github.com/Dr-Amar/Pyrite-Gunga-Pb-Zn-Deposit--Machine-Learning)
 ML-driven classification of Pb-Zn deposits using trace elements and isotope data  of Pyrite
@@ -46,7 +58,7 @@ Deep learning model trained on sphalerite geochemistry and isotopes
 > 🤖 Identified CD-type mineralization with critical metal enrichment (Ge, Cd, Ag, Sb)
 
 ---
-## 🛠 Projects
+## 🛠  Projects
 
 - 🧪 **Deep Learning for Ore Genesis & Metal Enrichment**  
   Applied deep learning on sphalerite trace elements and isotopes to classify mineralization zones in the Gunga Pb-Zn deposit. Validated using k-fold cross-validation and AUC.
