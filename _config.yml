@@ -1,1 +1,15 @@
+title: "AIMEX Lab"
+description: "Artificial Intelligence for Mineral Exploration Laboratory"
+theme: minima
 
+header_pages:
+  - _pages/about.md
+  - _pages/projects.md
+  - _pages/publications.md
+  - _pages/contact.md
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: page
