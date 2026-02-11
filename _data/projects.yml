@@ -1,71 +1,53 @@
 projects:
-  - name: "AI-Based Classification of Tectonic Settings from Pyrite"
-    summary: "CNN and XGBoost models trained on >5,000 LA-ICP-MS pyrite analyses from 50+ global localities."
-    highlights:
-      - ">95% classification accuracy"
-      - "Interpretable AI using SHAP and feature attribution"
-    tags: ["Tectonics", "Pyrite", "XGBoost", "CNN"]
-
-  - name: "Big-Data Mining of Pyrite Geochemistry"
-    summary: "Compilation of ~5,200 pyrite analyses from 138 deposits worldwide for deposit-type discrimination."
-    highlights:
-      - "RF, GB, MLP, and SVM models"
-      - "AUC > 0.99 across multiple classifiers"
-      - "SHAP-based metallogenic interpretation"
-    tags: ["Big Data", "Pyrite", "Metallogeny"]
-
-  - name: "Big-Data Mining of Galena Geochemistry"
-    url: "https://github.com/Dr-Amar/Galena-Geochemistry-ML-Metallogenic-Discrimination"
-    summary: "ML-based classification of galena from 37 global Pb–Zn deposits using imbalance-aware workflows."
-    highlights:
-      - "SMOTE and RUC-based resampling"
-      - "Gradient Boosting accuracy of 98.19%"
-    tags: ["Galena", "Machine Learning", "Pb-Zn"]
-
-  - name: "Interactive AI Web Applications for Deposit Prediction"
-    summary: "Python- and Gradio-based web tools for real-time deposit-type prediction from mineral-chemistry inputs."
-    highlights:
-      - "User-interactive ML inference"
-      - "Designed for industry and academic workflows"
-    tags: ["AI Applications", "Gradio", "Mineral Exploration"]
-  - name: "Pyrite–Gunga Pb–Zn Deposit — Machine Learning"
+  - name: "Pyrite-Gunga-Pb-Zn-Deposit--Machine-Learning"
     url: "https://github.com/Dr-Amar/Pyrite-Gunga-Pb-Zn-Deposit--Machine-Learning"
-    summary: "ML-driven classification of Pb–Zn deposits using pyrite trace elements and isotopic signatures."
+    summary: "ML-driven classification of Pb–Zn deposits using pyrite trace elements + isotopes."
     highlights:
-      - "RF / GB / SVM / MLP models with >94% accuracy"
-      - "LOGO validation across global datasets"
-    tags: ["Geochemistry", "Machine Learning", "Pyrite", "Pb-Zn"]
+      - "RF/GB/SVM/MLP; LOGO validation"
+      - "Explainability: SHAP, t-SNE/UMAP"
+    tags: ["Geochemistry", "ML", "Pb-Zn", "Pyrite"]
 
-  - name: "Sphalerite–Gunga Pb–Zn — Deep Learning"
+  - name: "Sphalerite-Gunga-Pb-Zn-DeepLearning"
     url: "https://github.com/Dr-Amar/Sphalerite-Gunga-Pb-Zn-DeepLearning"
-    summary: "Deep learning applied to sphalerite geochemistry and isotopes for mineralization classification."
+    summary: "Deep learning on sphalerite geochemistry + isotopes for mineralization-zone classification."
     highlights:
-      - "CNN-based feature learning from trace-element + isotope data"
       - "Critical metal enrichment signals (Ge, Cd, Ag, Sb)"
     tags: ["Deep Learning", "Sphalerite", "Critical Metals"]
 
+  - name: "Big-Data Mining of Pyrite Geochemistry"
+    url: ""   # keep empty if no public link
+    summary: "Compilation of ~5,200 analyses from 138 deposits worldwide; deposit-type discrimination with interpretable ML."
+    highlights:
+      - "AUC > 0.99 in multiple models"
+      - "Explainability: SHAP-based interpretation"
+    tags: ["Big Data", "Pyrite", "Metallogeny", "XGBoost", "SHAP"]
+
+  - name: "Big-Data Mining of Galena Geochemistry"
+    url: "https://github.com/Dr-Amar/Galena-Geochemistry-ML-Metallogenic-Discrimination"
+    summary: "ML-based classification of galena from 37 global Pb–Zn deposits using imbalance-aware workflows (SMOTE/RUC)."
+    highlights:
+      - "Best model accuracy: 98.19%"
+    tags: ["Big Data", "Galena", "Pb-Zn", "Imbalanced Learning"]
+
+  - name: "Interactive AI Web Apps for Deposit Prediction"
+    url: ""
+    summary: "Python + Gradio tools for real-time deposit-type prediction using mineral-chemistry inputs."
+    highlights:
+      - "Interactive inference + explainability-ready design"
+    tags: ["Gradio", "Python", "Decision Support", "Exploration AI"]
+
   - name: "Regional Alteration Mapping of the Arabian Shield"
-    summary: "Landsat-8/9-based alteration mapping across ~600,000 km² with supervised classification and AI-assisted prospectivity modeling."
+    url: ""
+    summary: "Landsat-8/9 alteration mapping across ~600,000 km² with supervised classification and AI-assisted prospectivity modeling."
     highlights:
-      - "National-scale alteration system mapping"
-      - "Vision 2030–aligned mineral targeting"
-    tags: ["Remote Sensing", "Arabian Shield", "Alteration Mapping"]
-      - name: "National Geological Database (NGD) — Data Model & Data Management"
-    summary: "Design and implementation of data models and data management workflows for Saudi Arabia’s National Geological Database (NGD), supporting the Kingdom’s Vision 2030 geoscience digital transformation."
+      - "Regional-scale mapping for exploration targeting"
+    tags: ["Remote Sensing", "Arabian Shield", "Prospectivity", "GIS"]
+
+  - name: "National Geological Database (NGD) – Data Model & Data Management"
+    url: ""
+    summary: "Saudi Vision 2030 NGD program: structured/unstructured geoscience data models, integration pipelines, and standards-based geospatial infrastructure."
     highlights:
-      - "Design and implementation of structured and unstructured geological data models for national-scale geoscience infrastructure"
-      - "Development of DII–ETL pipelines for multi-source geological data integration"
-      - "Data quality assessment, validation, and geospatial database standardization"
-      - "Alignment with international ISO and OGC geospatial standards"
-      - "Metadata catalog development to enhance data accessibility and interoperability"
-      - "Contribution to a cloud-based, scalable, high-availability, AI-ready NGD framework"
-    tags:
-      - "National Geological Database"
-      - "Saudi Vision 2030"
-      - "Geological Data Management"
-      - "Geospatial Databases"
-      - "ISO/OGC Standards"
-      - "Cloud Data Infrastructure"
-      - "AI-Ready Systems"
-
-
+      - "DII–ETL integration + data quality assessment"
+      - "ISO/OGC-aligned geospatial standardization + metadata cataloging"
+      - "Cloud-based framework: scalable, highly available, AI-ready"
+    tags: ["NGD", "Data Model", "ETL", "ISO/OGC", "Geospatial", "Cloud"]
