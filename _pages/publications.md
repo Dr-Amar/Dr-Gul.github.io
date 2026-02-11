@@ -3,6 +3,7 @@ title: Publications
 permalink: /publications/
 ---
 
+Publications listed here include work conducted under various academic, industrial, and national research programs. AIMEX Lab represents the current research direction and coordination hub. 
 Publications are sorted by year (descending). First-author papers are highlighted.
 
 ---
