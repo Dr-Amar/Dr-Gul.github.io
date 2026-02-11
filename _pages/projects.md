@@ -1,6 +1,8 @@
 ---
 title: Projects
+layout: page
 permalink: /projects/
+
 ---
 
 <!-- AUTO-GENERATED:PROJECTS:START -->
