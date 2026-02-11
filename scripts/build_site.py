@@ -167,49 +167,46 @@ def render_publications() -> str:
         return "_No publications parsed from BibTeX._\n"
 
     lines = []
-    # Optional intro line (keep it short)
-    # lines.append("_This page is automatically generated from `data/publications.bib`._\n")
-
     current_year = None
 
     for p in pubs:
-        year = p.get("year", "") or "Unsorted"
+        year = p.get("year", "Unknown")
+
+        # 🔹 YEAR HEADER
         if year != current_year:
+            lines.append(f"\n## {year}\n")
             current_year = year
-            lines.append(f"## {current_year}\n")
 
         journal = p.get("journal", "")
         doi = p.get("doi", "")
         note = p.get("note", "")
-        first_author = bool(p.get("first_author", False))
+        first_author = p.get("first_author", False)
 
         badges = []
         if first_author:
             badges.append("**[First-author]**")
         if note:
             badges.append(f"*{note}*")
+
         badge_str = (" " + " · ".join(badges)) if badges else ""
 
         parts = [f"**{p['title']}**"]
         if journal:
             parts.append(f"*{journal}*")
-        # (Year already shown as section header)
 
         line = " — ".join(parts) + badge_str
 
+        # 🔹 DOI BUTTON (ALL PAPERS WITH DOI)
         if doi:
             doi_url = f"https://doi.org/{doi}"
             line += f' &nbsp; <a class="doi-btn" href="{doi_url}" target="_blank" rel="noopener">DOI</a>'
 
         lines.append(f"- {line}")
 
-        # spacer between items (optional)
-        # lines.append("")
-
-    lines.append("")
-    lines.append("> Tip: You can style the DOI button via CSS class `.doi-btn`.")
+    lines.append("\n> Tip: You can style the DOI button via CSS class `.doi-btn`.")
 
     return "\n".join(lines).strip() + "\n"
+
 
 def main():
     # Projects page
