@@ -21,7 +21,7 @@ for geochemistry, ore-system science, and mineral exploration.
 ---
 
 ### Quick Links
-- → **Projects**: AIMEX Lab repositories and research programs  
-- → **Publications**: auto-generated list from BibTeX  
-- → **Contact**: collaboration and consulting
 
+- → **[Projects](/projects/)**: AIMEX Lab repositories and research programs  
+- → **[Publications](/publications/)**: auto-generated list from BibTeX  
+- → **[Contact](/contact/)**: collaboration and consulting  
