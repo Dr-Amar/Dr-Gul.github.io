@@ -52,6 +52,7 @@ projects:
     - "Decision-support analytics for exploration prioritization and investment planning"
     - "Alignment with Saudi Vision 2030 and sustainable mining strategy"
   tags: ["Mineral Exploration", "GIS", "Economic Analysis", "Saudi Arabia", "Vision 2030"]
+  
    - name: "National Geological Database (NGD) – Data Model & Management"
   summary: "Saudi Vision 2030 NGD program: data modeling, ETL, QA/QC, ISO/OGC standards."
   highlights:
