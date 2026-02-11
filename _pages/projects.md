@@ -62,14 +62,27 @@ Landsat-8/9 alteration mapping across ~600,000 km² with supervised classificati
 
 ---
 
-## National Geological Database (NGD) – Data Model & Data Management
-Saudi Vision 2030 NGD program: structured/unstructured geoscience data models, integration pipelines, and standards-based geospatial infrastructure.
+## National-Scale Mineral Potential Mapping & Economic Analysis (Saudi Arabia)
+Spatial mapping and economic assessment of mineral deposits and prospects across Saudi Arabia to support strategic exploration planning and investment prioritization.
 
-- DII–ETL integration + data quality assessment
-- ISO/OGC-aligned geospatial standardization + metadata cataloging
-- Cloud-based framework: scalable, highly available, AI-ready
+- National-scale mapping of high- and low-grade mineral deposits and occurrences
+- High-resolution mineral potential maps and interactive GIS dashboards
+- Integrated geological, geochemical, and spatial data analysis
+- Decision-support analytics for exploration prioritization and investment planning
+- Alignment with Saudi Vision 2030 and sustainable mining strategy
 
-**Tags:** NGD, Data Model, ETL, ISO/OGC, Geospatial, Cloud
+**Tags:** Mineral Exploration, GIS, Economic Analysis, Saudi Arabia, Vision 2030
+
+---
+
+## National Geological Database (NGD) – Data Model & Management
+Saudi Vision 2030 NGD program: geological data modeling, ETL pipelines, QA/QC, and ISO/OGC-aligned geospatial standards.
+
+- Structured & unstructured geological data models
+- ETL workflows and data quality assessment
+- Cloud-based, AI-ready national geoscience infrastructure
+
+**Tags:** NGD, Geospatial, Data Engineering, ISO, OGC
 
 ---
 
