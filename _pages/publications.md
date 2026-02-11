@@ -49,6 +49,5 @@ Publications are sorted by year (descending). First-author papers are highlighte
 
 - **Evaluation of Shale Gas Prospect in Datta Formation Upper Indus Basin Evaluation of Shale Gas Prospect in Datta Formation Upper Indus Basin, Pakistan** — *Journal of the Pakistan Institute of Chemical Engineers* **[First-author]**
 
-> Tip: You can style the DOI button via CSS class `.doi-btn`.
 
 <!-- AUTO-GENERATED:PUBLICATIONS:END -->
