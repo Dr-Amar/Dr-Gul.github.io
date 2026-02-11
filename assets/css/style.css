@@ -16,3 +16,13 @@ body{ margin:0; font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif; color:va
 .nav a:hover{ color:var(--aimex-accent); }
 .page h1{ color:var(--aimex-primary); margin-top:10px; }
 .site-footer{ border-top:1px solid var(--border); color:var(--muted); }
+.doi-btn{
+  display:inline-block;
+  padding:2px 10px;
+  border:1px solid #0b5cab;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:12px;
+}
+.doi-btn:hover{ opacity:0.85; }
