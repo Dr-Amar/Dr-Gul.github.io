@@ -13,3 +13,6 @@ defaults:
       path: ""
     values:
       layout: page
+
+include:
+  - _pages
