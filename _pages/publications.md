@@ -3,7 +3,6 @@ title: Publications
 permalink: /publications/
 ---
 
-This page is automatically generated from `data/publications.bib`.
 Publications are sorted by year (descending). First-author papers are highlighted.
 
 ---
