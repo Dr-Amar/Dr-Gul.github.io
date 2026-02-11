@@ -4,53 +4,42 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Inputs
+# Canonical locations (recommended)
 PROJECTS_YML = ROOT / "_data" / "projects.yml"
 PUBS_BIB = ROOT / "data" / "publications.bib"
 
-# Pages to update
 PROJECTS_MD = ROOT / "_pages" / "projects.md"
 PUBS_MD = ROOT / "_pages" / "publications.md"
 
-# Markers in pages
 START_P = "<!-- AUTO-GENERATED:PROJECTS:START -->"
 END_P   = "<!-- AUTO-GENERATED:PROJECTS:END -->"
 START_U = "<!-- AUTO-GENERATED:PUBLICATIONS:START -->"
 END_U   = "<!-- AUTO-GENERATED:PUBLICATIONS:END -->"
 
-# First-author detection (BibTeX format)
-FIRST_AUTHOR_TOKEN = "Gul,"
+# Your name variants for "first-author" detection
+FIRST_AUTHOR_PATTERNS = [
+    r"^Gul,\s*M\.?A\.?,",                 # Gul, M.A.,
+    r"^Gul,\s*Muhammad\s+Amar\s*,",       # Gul, Muhammad Amar,
+    r"^Gul,\s*Muhammad\s+Amar\s+Gul\s*,", # Gul, Muhammad Amar Gul,
+]
 
 def replace_block(text: str, start: str, end: str, new_block: str) -> str:
-    """
-    Replace everything between start/end markers (inclusive) with new_block.
-    If markers do not exist, append them at the end.
-    """
     pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.DOTALL)
     repl = f"{start}\n{new_block}\n{end}"
-
     if not pattern.search(text):
         return text.rstrip() + "\n\n" + repl + "\n"
     return pattern.sub(repl, text)
 
-# ---------------------------
-# PROJECTS
-# ---------------------------
-
 def render_projects() -> str:
-    """
-    Render projects from _data/projects.yml into Markdown sections.
-    """
     if not PROJECTS_YML.exists():
-        return "_No projects.yml found yet._\n"
+        return "_No projects file found yet._\n"
 
     data = yaml.safe_load(PROJECTS_YML.read_text(encoding="utf-8"))
     lines = []
-
     for p in data.get("projects", []):
         name = p.get("name", "").strip()
         url = p.get("url", "").strip()
-        summary = (p.get("summary", "") or "").strip()
+        summary = p.get("summary", "").strip()
 
         if name and url:
             lines.append(f"## [{name}]({url})")
@@ -60,147 +49,146 @@ def render_projects() -> str:
         if summary:
             lines.append(summary)
 
-        if p.get("highlights"):
+        highlights = p.get("highlights") or []
+        if highlights:
             lines.append("")
-            for h in p["highlights"]:
-                lines.append(f"- {h}")
+            for h in highlights:
+                lines.append(f"- {str(h).strip()}")
 
-        if p.get("tags"):
+        tags = p.get("tags") or []
+        if tags:
             lines.append("")
-            lines.append(f"**Tags:** {', '.join(p['tags'])}")
+            lines.append(f"**Tags:** {', '.join([str(t).strip() for t in tags])}")
 
         lines.append("\n---\n")
 
     return "\n".join(lines).strip() + "\n"
 
-# ---------------------------
-# PUBLICATIONS
-# ---------------------------
+def _clean_val(s: str) -> str:
+    return " ".join(s.replace("\n", " ").split()).strip()
 
-def _get_field(entry: str, field: str) -> str:
-    """
-    Extracts a BibTeX field value, handling:
-      field = {...},
-      field = "...",
-      field = 2025,
-    Works across multiline braced/quoted values.
-    """
-    pat = re.compile(
-        rf"\b{re.escape(field)}\s*=\s*(\{{(?:.|\n)*?\}}|\"(?:.|\n)*?\"|[^,\n]+)",
-        re.IGNORECASE
-    )
-    m = pat.search(entry)
+def _field(ch: str, key: str) -> str:
+    # Handles: key = {..} OR key = "..."  (best-effort)
+    m = re.search(rf"\b{re.escape(key)}\s*=\s*(\{{.*?\}}|\".*?\")\s*,", ch, re.I | re.S)
     if not m:
         return ""
-
     v = m.group(1).strip()
-
-    # strip braces/quotes
     if v.startswith("{") and v.endswith("}"):
-        v = v[1:-1].strip()
+        v = v[1:-1]
     if v.startswith('"') and v.endswith('"'):
-        v = v[1:-1].strip()
+        v = v[1:-1]
+    return _clean_val(v)
 
-    # normalize whitespace
-    return " ".join(v.split())
+def _year(ch: str) -> str:
+    m = re.search(r"\byear\s*=\s*[{(\"]?(\d{4})", ch, re.I)
+    return m.group(1) if m else ""
+
+def _is_first_author(author_field: str) -> bool:
+    a = author_field.strip()
+    for pat in FIRST_AUTHOR_PATTERNS:
+        if re.search(pat, a, flags=re.I):
+            return True
+    return False
 
 def parse_bibtex_entries(bib: str):
-    """
-    Parse BibTeX and return list of dicts:
-      year, title, journal, doi, note, author, first_author
-    """
     entries = []
     chunks = re.split(r"@\w+\s*{", bib)
-
     for ch in chunks[1:]:
-        title = _get_field(ch, "title")
+        title = _field(ch, "title")
         if not title:
             continue
 
-        year = _get_field(ch, "year")
-        journal = _get_field(ch, "journal")
-        doi = _get_field(ch, "doi")
-        note = _get_field(ch, "note")
-        author = _get_field(ch, "author")
-
-        # First-author if author exists and starts with "Gul,"
-        is_first = bool(author) and author.strip().startswith(FIRST_AUTHOR_TOKEN)
+        author = _field(ch, "author")
+        journal = _field(ch, "journal")
+        year = _year(ch)
+        doi = _field(ch, "doi")
+        note = _field(ch, "note")
 
         entries.append({
             "year": year,
             "title": title,
+            "author": author,
             "journal": journal,
             "doi": doi,
             "note": note,
-            "author": author,
-            "first_author": is_first,
+            "first_author": _is_first_author(author),
         })
 
-    # Sort by year desc (missing years go last)
-    def sort_key(x):
-        y = x.get("year", "")
-        return (y if y.isdigit() else "0000", x.get("title", ""))
+    # Sort by year desc, then first-author first
+    def keyfn(x):
+        y = int(x["year"]) if x["year"].isdigit() else -1
+        fa = 1 if x["first_author"] else 0
+        return (y, fa)
 
-    entries.sort(key=sort_key, reverse=True)
+    entries.sort(key=keyfn, reverse=True)
     return entries
 
 def render_publications() -> str:
-    """
-    Render publications from data/publications.bib into Markdown list.
-    DOI button only (no PDFs).
-    """
     if not PUBS_BIB.exists():
-        return "_No BibTeX file found yet._\n"
+        return "_No BibTeX file found yet. Expected: `data/publications.bib`._\n"
 
     bib = PUBS_BIB.read_text(encoding="utf-8", errors="ignore")
     pubs = parse_bibtex_entries(bib)
 
+    if not pubs:
+        return "_No publications parsed from BibTeX._\n"
+
     lines = []
     for p in pubs:
-        y = f" ({p['year']})" if p.get("year") else ""
-        j = f"*{p['journal']}*" if p.get("journal") else ""
-        n = f" — {p['note']}" if p.get("note") else ""
+        year = p.get("year", "")
+        journal = p.get("journal", "")
+        doi = p.get("doi", "")
+        note = p.get("note", "")
+        first_author = p.get("first_author", False)
 
-        # labels
-        labels = []
-        if p.get("first_author"):
-            labels.append("**First-author**")
-        label_str = f" · {' | '.join(labels)}" if labels else ""
+        badges = []
+        if first_author:
+            badges.append("**[First-author]**")
+        if note:
+            badges.append(f"*{note}*")
 
-        # DOI button-like link (Markdown)
-        doi_btn = f" [DOI](https://doi.org/{p['doi']})" if p.get("doi") else ""
+        badge_str = (" " + " · ".join(badges)) if badges else ""
 
-        if j:
-            lines.append(f"- **{p['title']}** — {j}{y}{n}{label_str}{doi_btn}")
-        else:
-            lines.append(f"- **{p['title']}**{y}{n}{label_str}{doi_btn}")
+        parts = []
+        parts.append(f"**{p['title']}**")
+        if journal:
+            parts.append(f"*{journal}*")
+        if year:
+            parts.append(f"({year})")
+
+        line = " — ".join(parts) + badge_str
+
+        if doi:
+            doi_url = f"https://doi.org/{doi}"
+            # Button-like link (works with your site CSS if you add .doi-btn style)
+            line += f' &nbsp; <a class="doi-btn" href="{doi_url}" target="_blank" rel="noopener">DOI</a>'
+
+        lines.append(f"- {line}")
+
+    # Add tiny CSS hint block (optional)
+    lines.append("")
+    lines.append("> Tip: You can style the DOI button via CSS class `.doi-btn`.")
 
     return "\n".join(lines).strip() + "\n"
 
-# ---------------------------
-# MAIN
-# ---------------------------
-
 def main():
-    # Update Projects page
-    if PROJECTS_MD.exists():
-        p_text = PROJECTS_MD.read_text(encoding="utf-8")
-        p_block = render_projects()
-        PROJECTS_MD.write_text(
-            replace_block(p_text, START_P, END_P, p_block),
-            encoding="utf-8",
-            newline="\n"
-        )
+    # Projects page
+    p_text = PROJECTS_MD.read_text(encoding="utf-8") if PROJECTS_MD.exists() else ""
+    p_block = render_projects()
+    PROJECTS_MD.write_text(
+        replace_block(p_text, START_P, END_P, p_block),
+        encoding="utf-8",
+        newline="\n",
+    )
 
-    # Update Publications page
-    if PUBS_MD.exists():
-        u_text = PUBS_MD.read_text(encoding="utf-8")
-        u_block = render_publications()
-        PUBS_MD.write_text(
-            replace_block(u_text, START_U, END_U, u_block),
-            encoding="utf-8",
-            newline="\n"
-        )
+    # Publications page
+    u_text = PUBS_MD.read_text(encoding="utf-8") if PUBS_MD.exists() else ""
+    u_block = render_publications()
+    PUBS_MD.write_text(
+        replace_block(u_text, START_U, END_U, u_block),
+        encoding="utf-8",
+        newline="\n",
+    )
 
 if __name__ == "__main__":
     main()
