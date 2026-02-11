@@ -18,12 +18,13 @@ END_U   = "<!-- AUTO-GENERATED:PUBLICATIONS:END -->"
 
 # Your name variants for "first-author" detection
 FIRST_AUTHOR_PATTERNS = [
-    r"^Gul,\s*M\.?A\.?,",                 # Gul, M.A.,
-    r"^Gul,\s*Muhammad\s+Amar\s*,",       # Gul, Muhammad Amar,
-    r"^Gul,\s*Muhammad\s+Amar\s+Gul\s*,", # Gul, Muhammad Amar Gul,
+    r"^Gul,\s*M\.?\s*A\.?,",                 # Gul, M.A.,
+    r"^Gul,\s*Muhammad\s+Amar\s*,",          # Gul, Muhammad Amar,
+    r"^Gul,\s*Muhammad\s+Amar\s+Gul\s*,",    # Gul, Muhammad Amar Gul,
 ]
 
-DOI_REGEX = re.compile(r"(10\.\d{4,9}/[-._;()/:A-Z0-9]+)", re.I)
+DOI_REGEX = re.compile(r"(10\.\d{4,9}/[^\s\"<>]+)", re.IGNORECASE)
+DOI_URL_REGEX = re.compile(r"doi\.org/(10\.\d{4,9}/[^\s\"<>]+)", re.IGNORECASE)
 
 def replace_block(text: str, start: str, end: str, new_block: str) -> str:
     pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.DOTALL)
@@ -86,32 +87,32 @@ def _year(ch: str) -> str:
     return m.group(1) if m else ""
 
 def _is_first_author(author_field: str) -> bool:
-    a = author_field.strip()
+    a = (author_field or "").strip()
     for pat in FIRST_AUTHOR_PATTERNS:
         if re.search(pat, a, flags=re.I):
             return True
     return False
 
-def _extract_doi(*fields: str) -> str:
+def _extract_doi(*texts: str) -> str:
     """
-    Try to extract a DOI from any fields (doi/url/note/etc).
-    Returns DOI like '10.xxxx/....' or ''.
+    Return DOI string if found in any text, else "".
+    Accepts:
+      - doi = {10....}
+      - url = {https://doi.org/10....}
+      - note/text containing 'DOI:10....'
     """
-    for f in fields:
-        if not f:
+    for t in texts:
+        if not t:
             continue
+        t = t.strip()
 
-        # if already a doi.org URL
-        if "doi.org/" in f.lower():
-            after = f.split("doi.org/", 1)[1]
-            m = DOI_REGEX.search(after)
-            if m:
-                return m.group(1)
-
-        # if raw DOI exists somewhere
-        m = DOI_REGEX.search(f)
+        m = DOI_URL_REGEX.search(t)
         if m:
-            return m.group(1)
+            return m.group(1).rstrip(").,;]}>")
+
+        m = DOI_REGEX.search(t)
+        if m:
+            return m.group(1).rstrip(").,;]}>")
 
     return ""
 
@@ -127,15 +128,13 @@ def parse_bibtex_entries(bib: str):
         author = _field(ch, "author")
         journal = _field(ch, "journal")
         year = _year(ch)
-        doi_raw = _field(ch, "doi")
 
-        # additional places people store DOI/links
-        url = _field(ch, "url")
-        ee = _field(ch, "ee")
-        howpublished = _field(ch, "howpublished")
-        note = _field(ch, "note")
+        doi_field = _field(ch, "doi")
+        url_field = _field(ch, "url")
+        note_field = _field(ch, "note")
 
-        doi = _extract_doi(doi_raw, url, ee, howpublished, note)
+        # If doi is missing, try extracting from url/note/title (or any pasted doi.org)
+        doi = doi_field or _extract_doi(url_field, note_field, title)
 
         entries.append({
             "year": year,
@@ -143,14 +142,15 @@ def parse_bibtex_entries(bib: str):
             "author": author,
             "journal": journal,
             "doi": doi,
-            "note": note,
+            "url": url_field,
+            "note": note_field,
             "first_author": _is_first_author(author),
         })
 
     # Sort by year desc, then first-author first
     def keyfn(x):
-        y = int(x["year"]) if x["year"].isdigit() else -1
-        fa = 1 if x["first_author"] else 0
+        y = int(x["year"]) if (x.get("year") or "").isdigit() else -1
+        fa = 1 if x.get("first_author") else 0
         return (y, fa)
 
     entries.sort(key=keyfn, reverse=True)
@@ -166,51 +166,48 @@ def render_publications() -> str:
     if not pubs:
         return "_No publications parsed from BibTeX._\n"
 
-    # Group by year
-    groups = {}
-    for p in pubs:
-        y = p.get("year") or "Unknown"
-        groups.setdefault(y, []).append(p)
-
-    # Order years desc (Unknown last)
-    def year_sort_key(y):
-        return (0, int(y)) if y.isdigit() else (-1, -1)
-
-    years = sorted(groups.keys(), key=year_sort_key, reverse=True)
-    if "Unknown" in years:
-        years = [y for y in years if y != "Unknown"] + ["Unknown"]
-
     lines = []
-    for y in years:
-        lines.append(f"## {y}")
-        for p in groups[y]:
-            journal = p.get("journal", "")
-            doi = p.get("doi", "")
-            note = p.get("note", "")
-            first_author = p.get("first_author", False)
+    # Optional intro line (keep it short)
+    # lines.append("_This page is automatically generated from `data/publications.bib`._\n")
 
-            badges = []
-            if first_author:
-                badges.append('<span class="first-author">First-author</span>')
-            if note:
-                badges.append(f"<em>{note}</em>")
+    current_year = None
 
-            badge_str = (" " + " · ".join(badges)) if badges else ""
+    for p in pubs:
+        year = p.get("year", "") or "Unsorted"
+        if year != current_year:
+            current_year = year
+            lines.append(f"## {current_year}\n")
 
-            parts = []
-            parts.append(f"**{p['title']}**")
-            if journal:
-                parts.append(f"*{journal}*")
+        journal = p.get("journal", "")
+        doi = p.get("doi", "")
+        note = p.get("note", "")
+        first_author = bool(p.get("first_author", False))
 
-            line = " — ".join(parts) + badge_str
+        badges = []
+        if first_author:
+            badges.append("**[First-author]**")
+        if note:
+            badges.append(f"*{note}*")
+        badge_str = (" " + " · ".join(badges)) if badges else ""
 
-            if doi:
-                doi_url = f"https://doi.org/{doi}"
-                line += f' &nbsp; <a class="doi-btn" href="{doi_url}" target="_blank" rel="noopener">DOI</a>'
+        parts = [f"**{p['title']}**"]
+        if journal:
+            parts.append(f"*{journal}*")
+        # (Year already shown as section header)
 
-            lines.append(f"- {line}")
+        line = " — ".join(parts) + badge_str
 
-        lines.append("")  # blank line between years
+        if doi:
+            doi_url = f"https://doi.org/{doi}"
+            line += f' &nbsp; <a class="doi-btn" href="{doi_url}" target="_blank" rel="noopener">DOI</a>'
+
+        lines.append(f"- {line}")
+
+        # spacer between items (optional)
+        # lines.append("")
+
+    lines.append("")
+    lines.append("> Tip: You can style the DOI button via CSS class `.doi-btn`.")
 
     return "\n".join(lines).strip() + "\n"
 
