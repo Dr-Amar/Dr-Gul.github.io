@@ -50,4 +50,22 @@ projects:
       - "National-scale alteration system mapping"
       - "Vision 2030–aligned mineral targeting"
     tags: ["Remote Sensing", "Arabian Shield", "Alteration Mapping"]
+      - name: "National Geological Database (NGD) — Data Model & Data Management"
+    summary: "Design and implementation of data models and data management workflows for Saudi Arabia’s National Geological Database (NGD), supporting the Kingdom’s Vision 2030 geoscience digital transformation."
+    highlights:
+      - "Design and implementation of structured and unstructured geological data models for national-scale geoscience infrastructure"
+      - "Development of DII–ETL pipelines for multi-source geological data integration"
+      - "Data quality assessment, validation, and geospatial database standardization"
+      - "Alignment with international ISO and OGC geospatial standards"
+      - "Metadata catalog development to enhance data accessibility and interoperability"
+      - "Contribution to a cloud-based, scalable, high-availability, AI-ready NGD framework"
+    tags:
+      - "National Geological Database"
+      - "Saudi Vision 2030"
+      - "Geological Data Management"
+      - "Geospatial Databases"
+      - "ISO/OGC Standards"
+      - "Cloud Data Infrastructure"
+      - "AI-Ready Systems"
+
 
