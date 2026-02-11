@@ -6,7 +6,7 @@ projects:
       - "RF/GB/SVM/MLP; LOGO validation"
       - "Explainability: SHAP, t-SNE/UMAP"
     tags: ["Geochemistry", "ML", "Pb-Zn", "Pyrite"]
-  
+
   - name: "Sphalerite-Gunga-Pb-Zn-DeepLearning"
     url: "https://github.com/Dr-Amar/Sphalerite-Gunga-Pb-Zn-DeepLearning"
     summary: "Deep learning on sphalerite geochemistry + isotopes for mineralization-zone classification."
@@ -15,7 +15,7 @@ projects:
     tags: ["Deep Learning", "Sphalerite", "Critical Metals"]
 
   - name: "Big-Data Mining of Pyrite Geochemistry"
-    url: ""   # keep empty if no public link
+    url: ""
     summary: "Compilation of ~5,200 analyses from 138 deposits worldwide; deposit-type discrimination with interpretable ML."
     highlights:
       - "AUC > 0.99 in multiple models"
@@ -42,22 +42,24 @@ projects:
     highlights:
       - "Regional-scale mapping for exploration targeting"
     tags: ["Remote Sensing", "Arabian Shield", "Prospectivity", "GIS"]
- 
-- name: "National-Scale Mineral Potential Mapping & Economic Analysis (Saudi Arabia)"
-  summary: "Spatial mapping and economic assessment of mineral deposits and prospects across Saudi Arabia to support strategic exploration planning and investment prioritization."
-  highlights:
-    - "National-scale mapping of high- and low-grade mineral deposits and occurrences"
-    - "High-resolution mineral potential maps and interactive GIS dashboards"
-    - "Integrated geological, geochemical, and spatial data analysis"
-    - "Decision-support analytics for exploration prioritization and investment planning"
-    - "Alignment with Saudi Vision 2030 and sustainable mining strategy"
-  tags: ["Mineral Exploration", "GIS", "Economic Analysis", "Saudi Arabia", "Vision 2030"]
-  
-   - name: "National Geological Database (NGD) – Data Model & Management"
-  summary: "Saudi Vision 2030 NGD program: data modeling, ETL, QA/QC, ISO/OGC standards."
-  highlights:
-    - "Structured & unstructured geological data models"
-    - "Cloud-based, AI-ready geoscience infrastructure"
-  tags: ["NGD", "Geospatial", "Data Engineering"]
-  affiliation: "National Program (Saudi Vision 2030)"
-  
+
+  - name: "National-Scale Mineral Potential Mapping & Economic Analysis (Saudi Arabia)"
+    url: ""
+    summary: "Spatial mapping and economic assessment of mineral deposits and prospects across Saudi Arabia to support strategic exploration planning and investment prioritization."
+    highlights:
+      - "National-scale mapping of high- and low-grade mineral deposits and occurrences"
+      - "High-resolution mineral potential maps and interactive GIS dashboards"
+      - "Integrated geological, geochemical, and spatial data analysis"
+      - "Decision-support analytics for exploration prioritization and investment planning"
+      - "Alignment with Saudi Vision 2030 and sustainable mining strategy"
+    tags: ["Mineral Exploration", "GIS", "Economic Analysis", "Saudi Arabia", "Vision 2030"]
+
+  - name: "National Geological Database (NGD) – Data Model & Management"
+    url: ""
+    summary: "Saudi Vision 2030 NGD program: geological data modeling, ETL pipelines, QA/QC, and ISO/OGC-aligned geospatial standards."
+    highlights:
+      - "Structured & unstructured geological data models"
+      - "ETL workflows and data quality assessment"
+      - "Cloud-based, AI-ready national geoscience infrastructure"
+    tags: ["NGD", "Geospatial", "Data Engineering", "ISO", "OGC"]
+    affiliation: "National Program (Saudi Vision 2030)"
